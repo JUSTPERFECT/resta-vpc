@@ -181,16 +181,16 @@ resource "aws_network_acl" "restarent_public_nacl" {
      rule_no    = 100
      action     = "allow"
      cidr_block = "0.0.0.0/0"
-     from_port  = -1
-     to_port    = -1
+     from_port  = 0
+     to_port    = 0
    }
    ingress {
       protocol   = "-1"
       rule_no    = 100
       action     = "allow"
       cidr_block = "0.0.0.0/0"
-      from_port  = -1
-      to_port    = -1
+      from_port  = 0
+      to_port    = 0
     }
    ingress {
      protocol   = "tcp"
@@ -214,16 +214,16 @@ resource "aws_network_acl" "restarent_private_nacl" {
      rule_no    = 100
      action     = "allow"
      cidr_block = "0.0.0.0/0"
-     from_port  = -1
-     to_port    = -1
+     from_port  = 0
+     to_port    = 0
    }
    ingress {
       protocol   = "-1"
       rule_no    = 100
       action     = "allow"
       cidr_block = "0.0.0.0/0"
-      from_port  = -1
-      to_port    = -1
+      from_port  = 0
+      to_port    = 0
     }
    ingress {
      protocol   = "tcp"
