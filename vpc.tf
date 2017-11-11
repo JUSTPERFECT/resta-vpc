@@ -159,7 +159,7 @@ resource "aws_route_table_association" "restarent_public_1b_association" {
 ## Associate private subnet AZ1 with private route table
 
 resource "aws_route_table_association" "restarent_private_1a_association" {
-  subnet_id      = "${aws_subnet.restarent_public_subnet_1a.id}"
+  subnet_id      = "${aws_subnet.restarent_private_subnet_1a.id}"
   route_table_id = "${aws_route_table.restarent_private_route_table.id}"
 }
 
