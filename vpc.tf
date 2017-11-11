@@ -175,7 +175,7 @@ resource "aws_route_table_association" "restarent_private_1b_association" {
 
 resource "aws_network_acl" "restarent_public_nacl" {
   vpc_id = "${aws_vpc.restarent_vpc.id}"
- subnet_ids= ["${aws_subnet.restarent_public_subnet_1a.id},${aws_subnet.restarent_public_subnet_1b.id}"]
+ subnet_ids= ["${aws_subnet.restarent_public_subnet_1a.id}","${aws_subnet.restarent_public_subnet_1b.id}"]
   egress {
      protocol   = "-1"
      rule_no    = 100
@@ -208,7 +208,7 @@ resource "aws_network_acl" "restarent_public_nacl" {
 
 resource "aws_network_acl" "restarent_private_nacl" {
   vpc_id = "${aws_vpc.restarent_vpc.id}"
- subnet_ids= ["${aws_subnet.restarent_private_subnet_1a.id},${aws_subnet.restarent_private_subnet_1b.id}"]
+ subnet_ids= ["${aws_subnet.restarent_private_subnet_1a.id}","${aws_subnet.restarent_private_subnet_1b.id}"]
   egress {
      protocol   = "-1"
      rule_no    = 100
