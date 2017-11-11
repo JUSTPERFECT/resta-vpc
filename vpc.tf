@@ -235,6 +235,52 @@ resource "aws_network_acl_rule" "restarent_public_nacl_4" {
   to_port        = 61000
 }
 
+resource "aws_network_acl_rule" "restarent_private_nacl_1" {
+  network_acl_id = "${aws_network_acl.restarent_private_nacl.id}"
+  rule_number    = 100
+  egress         = false
+  protocol       = "-1"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = -1
+  to_port        = -1
+}
+
+
+resource "aws_network_acl_rule" "restarent_private_nacl_2" {
+  network_acl_id = "${aws_network_acl.restarent_private_nacl.id}"
+  rule_number    = 101
+  egress         = false
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = 32768
+  to_port        = 61000
+}
+
+
+
+resource "aws_network_acl_rule" "restarent_private_nacl_3" {
+  network_acl_id = "${aws_network_acl.restarent_private_nacl.id}"
+  rule_number    = 100
+  egress         = true
+  protocol       = "-1"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = -1
+  to_port        = -1
+}
+
+resource "aws_network_acl_rule" "restarent_private_nacl_4" {
+  network_acl_id = "${aws_network_acl.restarent_private_nacl.id}"
+  rule_number    = 101
+  egress         = true
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = 32768
+  to_port        = 61000
+}
 ## Hosted zone for restarent web site
 
 resource "aws_route53_zone" "restarent_route53_zone" {
