@@ -175,112 +175,66 @@ resource "aws_route_table_association" "restarent_private_1b_association" {
 
 resource "aws_network_acl" "restarent_public_nacl" {
   vpc_id = "${aws_vpc.restarent_vpc.id}"
-  subnet_ids = ["${aws_subnet.restarent_public_subnet_1a.id},${aws_subnet.restarent_public_subnet_1b.id}"]
-}
+ subnet_ids= ["${aws_subnet.restarent_public_subnet_1a},${aws_subnet.restarent_public_subnet_1b}"]
+  egress {
+     protocol   = "-1"
+     rule_no    = 100
+     action     = "allow"
+     cidr_block = "0.0.0.0/0"
+     from_port  = -1
+     to_port    = -1
+   }
+   ingress {
+      protocol   = "-1"
+      rule_no    = 100
+      action     = "allow"
+      cidr_block = "0.0.0.0/0"
+      from_port  = -1
+      to_port    = -1
+    }
+   ingress {
+     protocol   = "-1"
+     rule_no    = 200
+     action     = "allow"
+     cidr_block = "0.0.0.0/0"
+     from_port  = 32768
+     to_port    = 61000
+   }
+
+  }
 
 
 ## NACL for private subnet
 
 resource "aws_network_acl" "restarent_private_nacl" {
   vpc_id = "${aws_vpc.restarent_vpc.id}"
-  subnet_ids = ["${aws_subnet.restarent_private_subnet_1a.id},${aws_subnet.restarent_private_subnet_1b.id}"]
+ subnet_ids= ["${aws_subnet.restarent_private_subnet_1a},${aws_subnet.restarent_private_subnet_1b}"]
+  egress {
+     protocol   = "-1"
+     rule_no    = 100
+     action     = "allow"
+     cidr_block = "0.0.0.0/0"
+     from_port  = -1
+     to_port    = -1
+   }
+   ingress {
+      protocol   = "-1"
+      rule_no    = 100
+      action     = "allow"
+      cidr_block = "0.0.0.0/0"
+      from_port  = -1
+      to_port    = -1
+    }
+   ingress {
+     protocol   = "-1"
+     rule_no    = 200
+     action     = "allow"
+     cidr_block = "0.0.0.0/0"
+     from_port  = 32768
+     to_port    = 61000
+   }
 }
 
-## NACL Rules
-
-
-resource "aws_network_acl_rule" "restarent_public_nacl_1" {
-  network_acl_id = "${aws_network_acl.restarent_public_nacl.id}"
-  rule_number    = 100
-  egress         = false
-  protocol       = "-1"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = -1
-  to_port        = -1
-}
-
-resource "aws_network_acl_rule" "restarent_public_nacl_2" {
-  network_acl_id = "${aws_network_acl.restarent_public_nacl.id}"
-  rule_number    = 101
-  egress         = false
-  protocol       = "tcp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 32768
-  to_port        = 61000
-}
-
-
-
-resource "aws_network_acl_rule" "restarent_public_nacl_3" {
-  network_acl_id = "${aws_network_acl.restarent_public_nacl.id}"
-  rule_number    = 100
-  egress         = true
-  protocol       = "-1"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = -1
-  to_port        = -1
-}
-
-resource "aws_network_acl_rule" "restarent_public_nacl_4" {
-  network_acl_id = "${aws_network_acl.restarent_public_nacl.id}"
-  rule_number    = 101
-  egress         = true
-  protocol       = "tcp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 32768
-  to_port        = 61000
-}
-
-resource "aws_network_acl_rule" "restarent_private_nacl_1" {
-  network_acl_id = "${aws_network_acl.restarent_private_nacl.id}"
-  rule_number    = 100
-  egress         = false
-  protocol       = "-1"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = -1
-  to_port        = -1
-}
-
-
-resource "aws_network_acl_rule" "restarent_private_nacl_2" {
-  network_acl_id = "${aws_network_acl.restarent_private_nacl.id}"
-  rule_number    = 101
-  egress         = false
-  protocol       = "tcp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 32768
-  to_port        = 61000
-}
-
-
-
-resource "aws_network_acl_rule" "restarent_private_nacl_3" {
-  network_acl_id = "${aws_network_acl.restarent_private_nacl.id}"
-  rule_number    = 100
-  egress         = true
-  protocol       = "-1"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = -1
-  to_port        = -1
-}
-
-resource "aws_network_acl_rule" "restarent_private_nacl_4" {
-  network_acl_id = "${aws_network_acl.restarent_private_nacl.id}"
-  rule_number    = 101
-  egress         = true
-  protocol       = "tcp"
-  rule_action    = "allow"
-  cidr_block     = "0.0.0.0/0"
-  from_port      = 32768
-  to_port        = 61000
-}
 ## Hosted zone for restarent web site
 
 resource "aws_route53_zone" "restarent_route53_zone" {
