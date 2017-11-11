@@ -100,12 +100,6 @@ resource "aws_eip" "restarent_nat_eip" {
 resource "aws_nat_gateway" "restarent_nat_gateway" {
   allocation_id = "${aws_eip.restarent_nat_eip.id}"
   subnet_id     = "${aws_subnet.restarent_public_subnet_1a.id}"
-
-  tags {
-    Name = "restarent_nat_gateway"
-    owner = "jayaprakash"
-    team  =" web app migration team"
-  }
 }
 
 ## route table for public Subnets
@@ -137,6 +131,12 @@ resource "aws_route_table" "restarent_private_route_table" {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = "${aws_nat_gateway.restarent_nat_gateway.id}"
   }
+  tags {
+    Name = "restarent_private_route_table"
+    owner = "jayaprakash"
+    team  =" web app migration team"
+  }
+
 }
 
 
